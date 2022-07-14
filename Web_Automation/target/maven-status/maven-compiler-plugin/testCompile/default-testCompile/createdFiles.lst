@@ -1,0 +1,12 @@
+Starter\Stepdefinitions\PoinStep.class
+Starter\CucumberTestSuite.class
+Starter\Stepdefinitions\RedeemStep.class
+Starter\Pages\HistoryPage.class
+Starter\Pages\ReedemPage.class
+Starter\Pages\LoginPage.class
+Starter\Pages\RegisterdPage.class
+Starter\Pages\PoinPage.class
+Starter\Stepdefinitions\HistoryStep.class
+Starter\Pages\FAQPage.class
+Starter\Stepdefinitions\FAQStep.class
+Starter\Pages\HomePage.class
