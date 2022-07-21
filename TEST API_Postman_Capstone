@@ -1,0 +1,4930 @@
+{
+	"info": {
+		"_postman_id": "cdce4474-8fda-4ace-a961-587c8dbbdf18",
+		"name": "Capstone",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "20146040"
+	},
+	"item": [
+		{
+			"name": "Admin",
+			"item": [
+				{
+					"name": "Login for Admin (+)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonData = pm.response.json();\r",
+									"var token_admin = jsonData.Admin\r",
+									"pm.environment.set(\"Admin\", token_admin);\r",
+									"\r",
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"pm.test(\"Status code name has OK\", function () {\r",
+									"    pm.response.to.have.status(\"OK\");\r",
+									"});\r",
+									"pm.test(\"Body matches Admin\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include(\"Admin\")\r",
+									"    });\r",
+									"pm.test(\"Body matches message\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include(\"berhasil login\")});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"developercloyal@gmail.com\",\r\n    \"password\" : \"Cloyal!@#123\"\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}admin/login",
+							"host": [
+								"{{url}}admin"
+							],
+							"path": [
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Login for Non Admin (-)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Fail POST request\", function () {\r",
+									"    pm.expect(pm.response.code).to.be.oneOf([400,404, 500]);\r",
+									"});\r",
+									"pm.test(\"Body matches message\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include(\"record not found\")});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"email\": \"nonadmin@nonadmin.com\",\r\n  \"password\": \"nonadmin123\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}admin/login",
+							"host": [
+								"{{url}}admin"
+							],
+							"path": [
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Login with Null Email (-)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Fail POST request\", function () {\r",
+									"    pm.expect(pm.response.code).to.be.oneOf([400,404, 500]);\r",
+									"});\r",
+									"pm.test(\"Body matches message\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include(\"record not found\")});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"email\": \"\",\r\n  \"password\": \"alta123\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}admin/login",
+							"host": [
+								"{{url}}admin"
+							],
+							"path": [
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Login with Null Password (-)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Fail POST request\", function () {\r",
+									"    pm.expect(pm.response.code).to.be.oneOf([400,404, 500]);\r",
+									"});\r",
+									"pm.test(\"Body matches message\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include(\"record not found\")});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"email\": \"alterra123@hotmail.com\",\r\n  \"password\": \"\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}admin/login",
+							"host": [
+								"{{url}}admin"
+							],
+							"path": [
+								"login"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Login",
+			"item": [
+				{
+					"name": "Login with Email (+)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonData = pm.response.json();\r",
+									"var User = jsonData.User\r",
+									"pm.environment.set(\"User\", User);\r",
+									"\r",
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"pm.test(\"Status code name has OK\", function () {\r",
+									"    pm.response.to.have.status(\"OK\");\r",
+									"});\r",
+									"pm.test(\"Body matches User\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include(\"User\")});\r",
+									"pm.test(\"Body matches UserID\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include(\"User Id\")});\r",
+									"pm.test(\"Body matches Message\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include(\"berhasil login\")});\r",
+									"    "
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"Antonietta.Ullrich89@gmail.com\",\r\n    \"password\" : \"password123\"\r\n}\r\n\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}user/login",
+							"host": [
+								"{{url}}user"
+							],
+							"path": [
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Login Non User (-)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Fail POST request\", function () {\r",
+									"    pm.expect(pm.response.code).to.be.oneOf([400,404, 500]);\r",
+									"});\r",
+									"pm.test(\"Body matches message\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include(\"record not found\")});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"belumada@hotmail.com\",\r\n    \"password\" : \"galang!@#123\"\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}user/login",
+							"host": [
+								"{{url}}user"
+							],
+							"path": [
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Login Null Email (-)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Fail POST request\", function () {\r",
+									"    pm.expect(pm.response.code).to.be.oneOf([400,404, 500]);\r",
+									"});\r",
+									"pm.test(\"Body matches message\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include(\"record not found\")});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"\",\r\n    \"password\" : \"12345678\"\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}user/login",
+							"host": [
+								"{{url}}user"
+							],
+							"path": [
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Login Null Password (-)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Fail POST request\", function () {\r",
+									"    pm.expect(pm.response.code).to.be.oneOf([400,401,,404, 500]);\r",
+									"});\r",
+									"pm.test(\"Body matches message\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include(\"password salah\")});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"{{email}}\",\r\n    \"password\" : \"\"\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}user/login",
+							"host": [
+								"{{url}}user"
+							],
+							"path": [
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Login Wrong Password (-)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Fail POST request\", function () {\r",
+									"    pm.expect(pm.response.code).to.be.oneOf([400,401,,404, 500]);\r",
+									"});\r",
+									"pm.test(\"Body matches message\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include(\"password salah\")});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"{{email}}\",\r\n    \"password\" : \"salah\"\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}user/login",
+							"host": [
+								"{{url}}user"
+							],
+							"path": [
+								"login"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "User",
+			"item": [
+				{
+					"name": "Admin Get Detail User (+)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"pm.test(\"Status code name has OK\", function () {\r",
+									"    pm.response.to.have.status(\"OK\");\r",
+									"});\r",
+									"pm.test(\"Body matches Message\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include(\"success get all users\");\r",
+									"});\r",
+									"pm.test(\"Body matches Email\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include(\"email\");\r",
+									"});\r",
+									"pm.test(\"Body matches Name\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include(\"name\");\r",
+									"});\r",
+									"pm.test(\"Body matches ID\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include(\"id\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{Admin}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}users",
+							"host": [
+								"{{url}}users"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "As Non Admin Get Detail User (-)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Fail GET request\", function () {\r",
+									"    pm.expect(pm.response.code).to.be.oneOf([400,404, 405, 500]);\r",
+									"});\r",
+									"pm.test(\"Body matches Message\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include(\"missing or malformed jwt\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}users",
+							"host": [
+								"{{url}}users"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "As User Get Detail User (-)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Fail GET request\", function () {\r",
+									"    pm.expect(pm.response.code).to.be.oneOf([400,403,404, 405, 500]);\r",
+									"});\r",
+									"pm.test(\"Body matches Message\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include(\"hanya bisa admin\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{User}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}users",
+							"host": [
+								"{{url}}users"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create New User (+)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonData = pm.response.json();\r",
+									"var email = jsonData.data.email\r",
+									"pm.environment.set(\"email\", email);\r",
+									"\r",
+									"pm.test(\"Successful POST request\", function () {\r",
+									"    pm.expect(pm.response.code).to.be.oneOf([200,201, 202]);\r",
+									"});\r",
+									"pm.test(\"Status code is 201\", function () {\r",
+									"    pm.response.to.have.status(201);\r",
+									"});\r",
+									"pm.test(\"Status code name has Created\", function () {\r",
+									"    pm.response.to.have.status(\"Created\");\r",
+									"});\r",
+									"pm.test(\"Body matches Success\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include(\"success\");\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"aku\",\r\n    \"email\": \"{{$randomEmail}}\",\r\n    \"phone_number\": \"{{$randomPhoneNumber}}\",\r\n    \"password\": \"password123\",\r\n    \"date_of_birth\": \"2022-11-14\",\r\n    \"gender\": \"male\",\r\n    \"point\": 123,\r\n    \"account_number\": \"391238\"\r\n}\r\n\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}users",
+							"host": [
+								"{{url}}users"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Existing User  Email (-)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Fail POST request\", function () {\r",
+									"    pm.expect(pm.response.code).to.be.oneOf([400,404, 405, 500]);\r",
+									"});\r",
+									"pm.test(\"Body matches messages\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include(\"email is already registered\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"astaga alta123\",\r\n    \"email\": \"iskandar11@gmail.com\",\r\n    \"phone_number\": \"01813181185\",\r\n    \"password\": \"password123\",\r\n    \"date_of_birth\": \"2001-11-01\",\r\n    \"gender\": \"female\",\r\n    \"account_number\": \"3912389\"\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}users",
+							"host": [
+								"{{url}}users"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create User with Existing Phone Number(-)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Fail GET request\", function () {\r",
+									"    pm.expect(pm.response.code).to.be.oneOf([400,404, 405, 500]);\r",
+									"});\r",
+									"pm.test(\"Body matches messages\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include(\"phone number is already registered\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"astaga alta123\",\r\n    \"email\": \"{{$randomEmail}}\",\r\n    \"phone_number\": \"01813181185\",\r\n    \"password\": \"12345678\",\r\n    \"date_of_birth\": \"2001-11-01\",\r\n    \"gender\": \"female\",\r\n    \"account_number\": \"3912389\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}users",
+							"host": [
+								"{{url}}users"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create User with Invalid Phone Number(-)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Fail GET request\", function () {\r",
+									"    pm.expect(pm.response.code).to.be.oneOf([400,404, 405, 500]);\r",
+									"});\r",
+									"pm.test(\"Body matches messages\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include(\"Key: 'ReqNewUser.PhoneNumber' Error:Field validation for 'PhoneNumber' failed on the 'min' tag\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"astaga alta123\",\r\n    \"email\": \"{{$randomEmail}}\",\r\n    \"phone_number\": \"0181\",\r\n    \"password\": \"12345678\",\r\n    \"date_of_birth\": \"2001-11-01\",\r\n    \"gender\": \"female\",\r\n    \"account_number\": \"3912389\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}users",
+							"host": [
+								"{{url}}users"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create User with Null Email (-)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Fail GET request\", function () {\r",
+									"    pm.expect(pm.response.code).to.be.oneOf([400,404, 405, 500]);\r",
+									"});\r",
+									"pm.test(\"Body matches messages\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include(\"Key: 'ReqNewUser.Email' Error:Field validation for 'Email' failed on the 'required' tag\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"astaga alta123\",\r\n    \"email\": \"\",\r\n    \"phone_number\": \"{{$randomPhoneNumber}}\",\r\n    \"password\": \"12345678\",\r\n    \"date_of_birth\": \"2001-11-01\",\r\n    \"gender\": \"female\",\r\n    \"account_number\": \"3912389\"\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}users",
+							"host": [
+								"{{url}}users"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create User with Invalid Email (-)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Fail GET request\", function () {\r",
+									"    pm.expect(pm.response.code).to.be.oneOf([400,404, 405, 500]);\r",
+									"});\r",
+									"pm.test(\"Body matches messages\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include(\"Key: 'ReqNewUser.Email' Error:Field validation for 'Email' failed on the 'email' tag\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"astaga alta123\",\r\n    \"email\": \"emailsalah\",\r\n    \"phone_number\": \"{{$randomPhoneNumber}}\",\r\n    \"password\": \"12345678\",\r\n    \"date_of_birth\": \"2001-11-01\",\r\n    \"gender\": \"female\",\r\n    \"account_number\": \"3912389\"\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}users",
+							"host": [
+								"{{url}}users"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create User with Null Password(-)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Fail GET request\", function () {\r",
+									"    pm.expect(pm.response.code).to.be.oneOf([400,404, 405, 500]);\r",
+									"});\r",
+									"pm.test(\"Body matches messages\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include(\"Key: 'ReqNewUser.Password' Error:Field validation for 'Password' failed on the 'required' tag\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"astaga alta123\",\r\n    \"email\": \"nagamerah12@gmail.com\",\r\n    \"phone_number\": \"{{$randomPhoneNumber}}\",\r\n    \"password\": \"\",\r\n    \"date_of_birth\": \"2001-11-01\",\r\n    \"gender\": \"female\",\r\n    \"account_number\": \"3912389\"\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}users",
+							"host": [
+								"{{url}}users"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create User with invalid Password (-)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Fail GET request\", function () {\r",
+									"    pm.expect(pm.response.code).to.be.oneOf([400,404, 405, 500]);\r",
+									"});\r",
+									"pm.test(\"Body matches messages\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include(\"Key: 'ReqNewUser.Password' Error:Field validation for 'Password' failed on the 'min' tag\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"astaga alta123\",\r\n    \"email\": \"nagamerah12@gmail.com\",\r\n    \"phone_number\": \"{{$randomPhoneNumber}}\",\r\n    \"password\": \"123\",\r\n    \"date_of_birth\": \"2001-11-01\",\r\n    \"gender\": \"female\",\r\n    \"account_number\": \"3912389\"\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}users",
+							"host": [
+								"{{url}}users"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Admin Get User by ID (+)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonData = pm.response.json();\r",
+									"var id = jsonData.data.id\r",
+									"pm.environment.set(\"id\", id);\r",
+									"\r",
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"pm.test(\"Status code name has OK\", function () {\r",
+									"    pm.response.to.have.status(\"OK\");\r",
+									"});\r",
+									"pm.test(\"Body matches Email\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include(\"email\");\r",
+									"});\r",
+									"pm.test(\"Body matches Name\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include(\"name\");\r",
+									"});\r",
+									"pm.test(\"Body matches Phone Number\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include(\"phone_number\");\r",
+									"});\r",
+									"pm.test(\"Body matches Message\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include(\"success get user\");\r",
+									"});\r",
+									"pm.test(\"Get User By ID\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.data.id).to.eql(id)\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{Admin}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}users/15",
+							"host": [
+								"{{url}}users"
+							],
+							"path": [
+								"15"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "User Get my detail By ID (+)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonData = pm.response.json();\r",
+									"var id = jsonData.data.id\r",
+									"pm.environment.set(\"id\", id);\r",
+									"\r",
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"pm.test(\"Status code name has OK\", function () {\r",
+									"    pm.response.to.have.status(\"OK\");\r",
+									"});\r",
+									"pm.test(\"Body matches Email\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include(\"email\");\r",
+									"});\r",
+									"pm.test(\"Body matches Name\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include(\"name\");\r",
+									"});\r",
+									"pm.test(\"Body matches Phone Number\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include(\"phone_number\");\r",
+									"});\r",
+									"pm.test(\"Body matches Message\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include(\"success get user\");\r",
+									"});\r",
+									"pm.test(\"Get User By ID\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.data.id).to.eql(id)\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{User}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}users/17",
+							"host": [
+								"{{url}}users"
+							],
+							"path": [
+								"17"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "User Get Detail User by Wrong ID (-)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Fail GET request\", function () {\r",
+									"    pm.expect(pm.response.code).to.be.oneOf([400,403,404, 405, 500]);\r",
+									"});\r",
+									"pm.test(\"Body matches Message\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include(\"error, id tidak sama\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{User}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}users/18",
+							"host": [
+								"{{url}}users"
+							],
+							"path": [
+								"18"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Admin Get Detail User by Wrong ID (-)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Fail GET request\", function () {\r",
+									"    pm.expect(pm.response.code).to.be.oneOf([400,404, 405, 500]);\r",
+									"});\r",
+									"pm.test(\"Body matches Message\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include(\"Not Found\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{Admin}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/7",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"7"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "User Get User by Type String ID (-)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Fail GET request\", function () {\r",
+									"    pm.expect(pm.response.code).to.be.oneOf([400,403,404,405,500]);\r",
+									"});\r",
+									"pm.test(\"Body matches Message\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include(\"error, id tidak sama\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{User}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}users/tujuh",
+							"host": [
+								"{{url}}users"
+							],
+							"path": [
+								"tujuh"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "User Get User by Null ID (-)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Fail GET request\", function () {\r",
+									"    pm.expect(pm.response.code).to.be.oneOf([400,403, 404,405,500]);\r",
+									"});\r",
+									"pm.test(\"Body matches Message\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include(\"hanya bisa admin\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{User}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}users",
+							"host": [
+								"{{url}}users"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Admin Delete Existing User by ID (+)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"\r",
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"pm.test(\"Status code name has OK\", function () {\r",
+									"    pm.response.to.have.status(\"OK\");\r",
+									"});\r",
+									"pm.test(\"Body matches UserID\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include(\"id\");\r",
+									"});\r",
+									"pm.test(\"Body matches Name\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include(\"name\");\r",
+									"});\r",
+									"pm.test(\"Body matches Email\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include(\"email\");\r",
+									"});\r",
+									"pm.test(\"Body matches Messages\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include(\"user deleted successfully\");\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{Admin}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{url}}users/3",
+							"host": [
+								"{{url}}users"
+							],
+							"path": [
+								"3"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Non Admin Delete User ID (-)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Fail PUT request\", function () {\r",
+									"    pm.expect(pm.response.code).to.be.oneOf([400,404, 405, 500]);\r",
+									"});\r",
+									"pm.test(\"Body matches Message\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include(\"missing or malformed jwt\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{url}}users/3",
+							"host": [
+								"{{url}}users"
+							],
+							"path": [
+								"3"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "User Delete User ID (-)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Fail PUT request\", function () {\r",
+									"    pm.expect(pm.response.code).to.be.oneOf([400,403,,404, 405, 500]);\r",
+									"});\r",
+									"pm.test(\"Body matches Message\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include(\"hanya bisa admin\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{User}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{url}}users/3",
+							"host": [
+								"{{url}}users"
+							],
+							"path": [
+								"3"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Admin Delete Non Existing User ID (-)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Fail GET request\", function () {\r",
+									"    pm.expect(pm.response.code).to.be.oneOf([400,404, 405, 500]);\r",
+									"});\r",
+									"pm.test(\"Body matches Message\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include(\"user not found\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{Admin}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{url}}users/12345",
+							"host": [
+								"{{url}}users"
+							],
+							"path": [
+								"12345"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Admin Delete just deleted User ID (-)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Fail GET request\", function () {\r",
+									"    pm.expect(pm.response.code).to.be.oneOf([400,404, 405, 500]);\r",
+									"});\r",
+									"pm.test(\"Body matches Message\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include(\"user not found\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{Admin}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{url}}users/12",
+							"host": [
+								"{{url}}users"
+							],
+							"path": [
+								"12"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Admin Delete User with Null ID (-)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Fail GET request\", function () {\r",
+									"    pm.expect(pm.response.code).to.be.oneOf([400,404, 405, 500]);\r",
+									"});\r",
+									"pm.test(\"Body matches Message\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include(\"Not Found\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{Admin}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{url}}users",
+							"host": [
+								"{{url}}users"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Admin Add Point by ID (+)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonData = pm.response.json();\r",
+									"var adminaddpoint = jsonData.point\r",
+									"pm.environment.set(\"point\", adminaddpoint);\r",
+									"\r",
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"pm.test(\"Status code name has OK\", function () {\r",
+									"    pm.response.to.have.status(\"OK\");\r",
+									"});\r",
+									"pm.test(\"Body matches Messages\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include(\"success add point user\");\r",
+									"});\r",
+									"pm.test(\"Put Point By ID\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.point).to.eql(adminaddpoint)\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{Admin}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"point\": 4000\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}users/3/point",
+							"host": [
+								"{{url}}users"
+							],
+							"path": [
+								"3",
+								"point"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "User Add Poin by ID (-)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Fail PUT request\", function () {\r",
+									"    pm.expect(pm.response.code).to.be.oneOf([400,403,404, 405, 500]);\r",
+									"});\r",
+									"pm.test(\"Body matches Message\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include(\"hanya bisa admin\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{User}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"point\": 2000\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}users/3/point",
+							"host": [
+								"{{url}}users"
+							],
+							"path": [
+								"3",
+								"point"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Non Login Add Poin by ID (-)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Fail PUT request\", function () {\r",
+									"    pm.expect(pm.response.code).to.be.oneOf([400,404, 405, 500]);\r",
+									"});\r",
+									"pm.test(\"Body matches Message\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include(\"missing or malformed jwt\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"point\": 2000\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}users/8/point",
+							"host": [
+								"{{url}}users"
+							],
+							"path": [
+								"8",
+								"point"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Admin Add Poin by Non Existing ID  (-)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Fail GET request\", function () {\r",
+									"    pm.expect(pm.response.code).to.be.oneOf([400,404, 405, 500]);\r",
+									"});\r",
+									"pm.test(\"Body matches Message\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include(\"User not found\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{Admin}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"point\": 1000\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}users/10000/point",
+							"host": [
+								"{{url}}users"
+							],
+							"path": [
+								"10000",
+								"point"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Admin Add Poin by Null ID  (-)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Fail GET request\", function () {\r",
+									"    pm.expect(pm.response.code).to.be.oneOf([400,404, 405, 500]);\r",
+									"});\r",
+									"pm.test(\"Body matches Message\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include(\"Not Found\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{Admin}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"point\": 1000\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}users/point",
+							"host": [
+								"{{url}}users"
+							],
+							"path": [
+								"point"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Product",
+			"item": [
+				{
+					"name": "User Get List All Product (+)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"pm.test(\"Status code name has OK\", function () {\r",
+									"    pm.response.to.have.status(\"OK\");\r",
+									"});\r",
+									"pm.test(\"Body matches ID\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include(\"id\");\r",
+									"});\r",
+									"pm.test(\"Body matches Type Product\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include(\"type_product\");\r",
+									"});\r",
+									"pm.test(\"Body matches Product Name\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include(\"product_name\");\r",
+									"});\r",
+									"pm.test(\"Body matches Message\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include(\"success get all products\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{User}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}products",
+							"host": [
+								"{{url}}products"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Admin Get List All Product (+)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"pm.test(\"Status code name has OK\", function () {\r",
+									"    pm.response.to.have.status(\"OK\");\r",
+									"});\r",
+									"pm.test(\"Body matches ID\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include(\"id\");\r",
+									"});\r",
+									"pm.test(\"Body matches Type Product\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include(\"type_product\");\r",
+									"});\r",
+									"pm.test(\"Body matches Product Name\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include(\"product_name\");\r",
+									"});\r",
+									"pm.test(\"Body matches Message\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include(\"success get all products\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{Admin}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}products",
+							"host": [
+								"{{url}}products"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Non Admin & Non User Get List All Product (+)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"pm.test(\"Status code name has OK\", function () {\r",
+									"    pm.response.to.have.status(\"OK\");\r",
+									"});\r",
+									"pm.test(\"Body matches ID\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include(\"id\");\r",
+									"});\r",
+									"pm.test(\"Body matches Type Product\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include(\"type_product\");\r",
+									"});\r",
+									"pm.test(\"Body matches Product Name\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include(\"product_name\");\r",
+									"});\r",
+									"pm.test(\"Body matches Message\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include(\"success get all products\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}products",
+							"host": [
+								"{{url}}products"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get List All Product with Wrong URL (-)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Fail GET request\", function () {\r",
+									"    pm.expect(pm.response.code).to.be.oneOf([400,404, 405, 500]);\r",
+									"});\r",
+									"pm.test(\"Body matches Message\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include(\"missing or malformed jwt\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}product",
+							"host": [
+								"{{url}}product"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Admin Create New Product (+)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Successful POST request\", function () {\r",
+									"    pm.expect(pm.response.code).to.be.oneOf([200,201, 202]);\r",
+									"});\r",
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(201);\r",
+									"});\r",
+									"pm.test(\"Status code name has Created\", function () {\r",
+									"    pm.response.to.have.status(\"Created\");\r",
+									"});\r",
+									"pm.test(\"Body matches ID\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include(\"id\");\r",
+									"});\r",
+									"pm.test(\"Body matches Type Product\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include(\"type_product\");\r",
+									"});\r",
+									"pm.test(\"Body matches Product Name\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include(\"product_name\");\r",
+									"});\r",
+									"pm.test(\"Body matches Message\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include(\"success create new product\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{Admin}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"type_product\": \"E-Money\",\r\n    \"product_name\": \"100000\",\r\n    \"provider_name\": \"Shoopepay\",\r\n    \"nominal\": 100000,\r\n    \"point\" : 100,\r\n    \"stock\" : 200\r\n}\r\n\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}products",
+							"host": [
+								"{{url}}products"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "User Create New Product (-)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Fail POST request\", function () {\r",
+									"    pm.expect(pm.response.code).to.be.oneOf([400,403,404, 405, 500]);\r",
+									"});\r",
+									"pm.test(\"Body matches Message\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include(\"hanya bisa admin\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{User}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"type_product\": \"Paket Data\",\r\n    \"product_name\": \"Data 3gb\",\r\n    \"provider_name\": \"telkomsel\",\r\n    \"nominal\": 31000,\r\n    \"point\" : 30,\r\n    \"stock\" : 200\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}products",
+							"host": [
+								"{{url}}products"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Non Login Create New Product (-)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Fail POST request\", function () {\r",
+									"    pm.expect(pm.response.code).to.be.oneOf([400,403,404, 405, 500]);\r",
+									"});\r",
+									"pm.test(\"Body matches Message\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include(\"missing or malformed jwt\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"type_product\": \"Paket Data\",\r\n    \"product_name\": \"Data 3gb\",\r\n    \"provider_name\": \"telkomsel\",\r\n    \"nominal\": 31000,\r\n    \"point\" : 30,\r\n    \"stock\" : 200\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}products",
+							"host": [
+								"{{url}}products"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Admin Create New Product With Null Type Product (-)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Fail POST request\", function () {\r",
+									"    pm.expect(pm.response.code).to.be.oneOf([400,404, 405, 500]);\r",
+									"});\r",
+									"pm.test(\"Body matches Message\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include(\"type product is nil\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{Admin}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"type_product\": \"\",\r\n    \"product_name\": \"Data 1gb\",\r\n    \"provider_name\": \"telkomsel\",\r\n    \"nominal\": 31000,\r\n    \"point\" : 30,\r\n    \"stock\" : 200\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}products",
+							"host": [
+								"{{url}}products"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Admin Create New Product with Null Product Name (-)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Fail POST request\", function () {\r",
+									"    pm.expect(pm.response.code).to.be.oneOf([400,404, 405, 500]);\r",
+									"});\r",
+									"pm.test(\"Body matches Message\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include(\"product name is nil\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{Admin}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"type_product\": \"E-Money\",\r\n    \"product_name\": \"\",\r\n    \"provider_name\": \"Shoopepay\",\r\n    \"nominal\": 31000,\r\n    \"point\" : 30,\r\n    \"stock\" : 200\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}products",
+							"host": [
+								"{{url}}products"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Admin Create New Product with Null  Provider Name (-)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Fail POST request\", function () {\r",
+									"    pm.expect(pm.response.code).to.be.oneOf([400,404, 405, 500]);\r",
+									"});\r",
+									"pm.test(\"Body matches Message\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include(\"provider name is nil\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{Admin}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"type_product\": \"Pulsa\",\r\n    \"product_name\": \"15000\",\r\n    \"provider_name\": \"\",\r\n    \"nominal\": 31000,\r\n    \"point\" : 30,\r\n    \"stock\" : 200\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}products",
+							"host": [
+								"{{url}}products"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Admin Create New Product with Exisitng Product (-)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Fail POST request\", function () {\r",
+									"    pm.expect(pm.response.code).to.be.oneOf([400,404, 405, 500]);\r",
+									"});\r",
+									"pm.test(\"Body matches Message\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include(\"already registered\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{Admin}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"type_product\": \"E-Money\",\r\n    \"product_name\": \"20000\",\r\n    \"provider_name\": \"Shoopepay\",\r\n    \"nominal\": 200000,\r\n    \"point\" : 50,\r\n    \"stock\" : 200\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}products",
+							"host": [
+								"{{url}}products"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "User Get Product by ID (+)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonData = pm.response.json();\r",
+									"var productID = jsonData.data.id\r",
+									"pm.environment.set(\"id\", productID);\r",
+									"\r",
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"pm.test(\"Status code name has OK\", function () {\r",
+									"    pm.response.to.have.status(\"OK\");\r",
+									"});\r",
+									"pm.test(\"Body matches ID\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include(\"id\");\r",
+									"});\r",
+									"pm.test(\"Body matches Type Product\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include(\"type_product\");\r",
+									"});\r",
+									"pm.test(\"Body matches Product Name\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include(\"product_name\");\r",
+									"});\r",
+									"pm.test(\"Body matches Message\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include(\"success get product\");\r",
+									"});\r",
+									"pm.test(\"Get Product By ProductID\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.data.id).to.eql(productID)\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{User}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}products/3",
+							"host": [
+								"{{url}}products"
+							],
+							"path": [
+								"3"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Admin Get Product by ID (+)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"pm.test(\"Status code name has OK\", function () {\r",
+									"    pm.response.to.have.status(\"OK\");\r",
+									"});\r",
+									"pm.test(\"Body matches ID\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include(\"id\");\r",
+									"});\r",
+									"pm.test(\"Body matches Type Product\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include(\"type_product\");\r",
+									"});\r",
+									"pm.test(\"Body matches Product Name\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include(\"product_name\");\r",
+									"});\r",
+									"pm.test(\"Body matches Message\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include(\"success get product\");\r",
+									"});\r",
+									"pm.test(\"Get Product By ProductID\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.data.id).to.eql(17)\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{Admin}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}products/17",
+							"host": [
+								"{{url}}products"
+							],
+							"path": [
+								"17"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Non User & Non Admin Get Product by ID (+)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"pm.test(\"Status code name has OK\", function () {\r",
+									"    pm.response.to.have.status(\"OK\");\r",
+									"});\r",
+									"pm.test(\"Body matches ID\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include(\"id\");\r",
+									"});\r",
+									"pm.test(\"Body matches Type Product\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include(\"type_product\");\r",
+									"});\r",
+									"pm.test(\"Body matches Product Name\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include(\"product_name\");\r",
+									"});\r",
+									"pm.test(\"Body matches Message\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include(\"success get product\");\r",
+									"});\r",
+									"pm.test(\"Get Product By ProductID\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.data.id).to.eql(1)\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}products/1",
+							"host": [
+								"{{url}}products"
+							],
+							"path": [
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Product by Non Existing ID (-)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Fail GET request\", function () {\r",
+									"    pm.expect(pm.response.code).to.be.oneOf([400,404, 405, 500]);\r",
+									"});\r",
+									"pm.test(\"Body matches Message\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include(\"product not found\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}products/123",
+							"host": [
+								"{{url}}products"
+							],
+							"path": [
+								"123"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Product by ID Type String (-)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Fail GET request\", function () {\r",
+									"    pm.expect(pm.response.code).to.be.oneOf([400,403,404,405,500]);\r",
+									"});\r",
+									"pm.test(\"Body matches Message\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include(\"product not found\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}products/satu",
+							"host": [
+								"{{url}}products"
+							],
+							"path": [
+								"satu"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Admin Update Existing Product by ID (+)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonData = pm.response.json();\r",
+									"var updateproduct = jsonData.data.id\r",
+									"pm.environment.set(\"id\", updateproduct);\r",
+									"\r",
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"pm.test(\"Status code name has OK\", function () {\r",
+									"    pm.response.to.have.status(\"OK\");\r",
+									"});\r",
+									"pm.test(\"Body matches ID\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include(\"id\");\r",
+									"});\r",
+									"pm.test(\"Body matches Type Product\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include(\"type_product\");\r",
+									"});\r",
+									"pm.test(\"Body matches Product Name\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include(\"product_name\");\r",
+									"});\r",
+									"pm.test(\"Body matches Message\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include(\"success update product\");\r",
+									"});\r",
+									"pm.test(\"Get Product By ProductID\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.data.id).to.eql(updateproduct)\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{Admin}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n            \"type_product\": \"E-Money\",\r\n            \"provider_name\": \"5000\",\r\n            \"product_name\": \"Shoopepay\",\r\n            \"nominal\": 5000,\r\n            \"point\": 5,\r\n            \"stock\": 200\r\n        }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}products/update/25",
+							"host": [
+								"{{url}}products"
+							],
+							"path": [
+								"update",
+								"25"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "User Update Existing Product by ID (-)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Fail POST request\", function () {\r",
+									"    pm.expect(pm.response.code).to.be.oneOf([400,403,404, 405, 500]);\r",
+									"});\r",
+									"pm.test(\"Body matches Message\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include(\"hanya bisa admin\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{User}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"type_product\": \"Paket Data\",\r\n    \"product_name\": \"Data 2gb\",\r\n    \"provider_name\": \"Telkomsel\",\r\n    \"nominal\": 21000,\r\n    \"point\" : 30,\r\n    \"stock\" : 100\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}products/update/10",
+							"host": [
+								"{{url}}products"
+							],
+							"path": [
+								"update",
+								"10"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Non Login Update Existing Product by ID (-)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Fail POST request\", function () {\r",
+									"    pm.expect(pm.response.code).to.be.oneOf([400,403,404, 405, 500]);\r",
+									"});\r",
+									"pm.test(\"Body matches Message\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include(\"missing or malformed jwt\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"type_product\": \"Paket Data\",\r\n    \"product_name\": \"Data 2gb\",\r\n    \"provider_name\": \"Telkomsel\",\r\n    \"nominal\": 21000,\r\n    \"point\" : 30,\r\n    \"stock\" : 100\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}products/update/10",
+							"host": [
+								"{{url}}products"
+							],
+							"path": [
+								"update",
+								"10"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Admin Update Non Existing Product ID (-)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Fail PUT request\", function () {\r",
+									"    pm.expect(pm.response.code).to.be.oneOf([400,404, 405, 500]);\r",
+									"});\r",
+									"pm.test(\"Body matches Message\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include(\"missing or malformed jwt\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"productID\": 1,\r\n  \"TypeProduct\": \"Paket Data\",\r\n  \"ProviderName\": \"Telkomsel\",\r\n  \"ProductName\": \"paket 10 gb\",\r\n  \"Nominal\": 10000,\r\n  \"Stock\": 3\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}products/update/1123",
+							"host": [
+								"{{url}}products"
+							],
+							"path": [
+								"update",
+								"1123"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Admin Update Existing Product by ID Type String (-)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Fail PUT request\", function () {\r",
+									"    pm.expect(pm.response.code).to.be.oneOf([400,404, 405, 500]);\r",
+									"});\r",
+									"pm.test(\"Body matches Message\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include(\"missing or malformed jwt\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"productID\": 1,\r\n  \"TypeProduct\": \"Paket Data\",\r\n  \"ProviderName\": \"Telkomsel\",\r\n  \"ProductName\": \"paket 10 gb\",\r\n  \"Nominal\": 10000,\r\n  \"Stock\": 3\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}products/update/tiga",
+							"host": [
+								"{{url}}products"
+							],
+							"path": [
+								"update",
+								"tiga"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Admin Update Existing Product by null ID (-)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Fail PUT request\", function () {\r",
+									"    pm.expect(pm.response.code).to.be.oneOf([400,404, 405, 500]);\r",
+									"});\r",
+									"pm.test(\"Body matches Message\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include(\"missing or malformed jwt\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"productID\": 1,\r\n  \"TypeProduct\": \"Paket Data\",\r\n  \"ProviderName\": \"Telkomsel\",\r\n  \"ProductName\": \"paket 10 gb\",\r\n  \"Nominal\": 10000,\r\n  \"Stock\": 3\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}products/update",
+							"host": [
+								"{{url}}products"
+							],
+							"path": [
+								"update"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Admin Delete Exsting Product ID (+)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonData = pm.response.json();\r",
+									"var deleteproduct = jsonData.data.id\r",
+									"pm.environment.set(\"id\", deleteproduct);\r",
+									"\r",
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"pm.test(\"Status code name has OK\", function () {\r",
+									"    pm.response.to.have.status(\"OK\");\r",
+									"});\r",
+									"pm.test(\"Body matches Messages\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include(\"product deleted successfully\");\r",
+									"});\r",
+									"pm.test(\"Delete Product By ID\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.data.id).to.eql(deleteproduct)\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{Admin}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{url}}products/13",
+							"host": [
+								"{{url}}products"
+							],
+							"path": [
+								"13"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "User Delete Exsting Product ID (-)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Fail PUT request\", function () {\r",
+									"    pm.expect(pm.response.code).to.be.oneOf([400,403,404, 405, 500]);\r",
+									"});\r",
+									"pm.test(\"Body matches Message\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include(\"hanya bisa admin\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{User}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{url}}products/1",
+							"host": [
+								"{{url}}products"
+							],
+							"path": [
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Non Login Delete Exsting Product ID (-)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Fail PUT request\", function () {\r",
+									"    pm.expect(pm.response.code).to.be.oneOf([400,404, 405, 500]);\r",
+									"});\r",
+									"pm.test(\"Body matches Message\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include(\"missing or malformed jwt\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{url}}products/1",
+							"host": [
+								"{{url}}products"
+							],
+							"path": [
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Admin Delete Non Exsting Product ID (-)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Fail DELETE request\", function () {\r",
+									"    pm.expect(pm.response.code).to.be.oneOf([400,404, 405, 500]);\r",
+									"});\r",
+									"pm.test(\"Body matches Message\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include(\"product not found\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{Admin}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{url}}products/123",
+							"host": [
+								"{{url}}products"
+							],
+							"path": [
+								"123"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Admin Delete Exsting Product by ID Type String (-)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Fail DELETE request\", function () {\r",
+									"    pm.expect(pm.response.code).to.be.oneOf([400,404, 405, 500]);\r",
+									"});\r",
+									"pm.test(\"Body matches Message\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include(\"product not found\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{Admin}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{url}}products/satu",
+							"host": [
+								"{{url}}products"
+							],
+							"path": [
+								"satu"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Admin Delete Exsting Product by null ID (-)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Fail DELETE request\", function () {\r",
+									"    pm.expect(pm.response.code).to.be.oneOf([400,404, 405, 500]);\r",
+									"});\r",
+									"pm.test(\"Body matches Message\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include(\"Not Found\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{Admin}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{url}}products",
+							"host": [
+								"{{url}}products"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Admin Get Product Paket Data (+)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"pm.test(\"Status code name has OK\", function () {\r",
+									"    pm.response.to.have.status(\"OK\");\r",
+									"});\r",
+									"pm.test(\"Body matches ID\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include(\"id\");\r",
+									"});\r",
+									"pm.test(\"Body matches Type Product\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include(\"type_product\");\r",
+									"});\r",
+									"pm.test(\"Body matches Product Name\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include(\"product_name\");\r",
+									"});\r",
+									"pm.test(\"Body matches Message\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include(\"success get all Paket Data\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{Admin}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}products/PaketData",
+							"host": [
+								"{{url}}products"
+							],
+							"path": [
+								"PaketData"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "User Get Product Paket Data (+)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"pm.test(\"Status code name has OK\", function () {\r",
+									"    pm.response.to.have.status(\"OK\");\r",
+									"});\r",
+									"pm.test(\"Body matches ID\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include(\"id\");\r",
+									"});\r",
+									"pm.test(\"Body matches Type Product\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include(\"type_product\");\r",
+									"});\r",
+									"pm.test(\"Body matches Product Name\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include(\"product_name\");\r",
+									"});\r",
+									"pm.test(\"Body matches Message\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include(\"success get all Paket Data\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{User}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}products/PaketData",
+							"host": [
+								"{{url}}products"
+							],
+							"path": [
+								"PaketData"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Non Login Get Product Paket Data (+)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"pm.test(\"Status code name has OK\", function () {\r",
+									"    pm.response.to.have.status(\"OK\");\r",
+									"});\r",
+									"pm.test(\"Body matches ID\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include(\"id\");\r",
+									"});\r",
+									"pm.test(\"Body matches Type Product\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include(\"type_product\");\r",
+									"});\r",
+									"pm.test(\"Body matches Product Name\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include(\"product_name\");\r",
+									"});\r",
+									"pm.test(\"Body matches Message\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include(\"success get all Paket Data\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}products/PaketData",
+							"host": [
+								"{{url}}products"
+							],
+							"path": [
+								"PaketData"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Admin Get Product Pulsa (+)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"pm.test(\"Status code name has OK\", function () {\r",
+									"    pm.response.to.have.status(\"OK\");\r",
+									"});\r",
+									"pm.test(\"Body matches ID\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include(\"id\");\r",
+									"});\r",
+									"pm.test(\"Body matches Type Product\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include(\"type_product\");\r",
+									"});\r",
+									"pm.test(\"Body matches Product Name\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include(\"product_name\");\r",
+									"});\r",
+									"pm.test(\"Body matches Message\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include(\"success get all Pulsa\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{Admin}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}products/Pulsa",
+							"host": [
+								"{{url}}products"
+							],
+							"path": [
+								"Pulsa"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "User Get Product Pulsa(+)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"pm.test(\"Status code name has OK\", function () {\r",
+									"    pm.response.to.have.status(\"OK\");\r",
+									"});\r",
+									"pm.test(\"Body matches ID\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include(\"id\");\r",
+									"});\r",
+									"pm.test(\"Body matches Type Product\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include(\"type_product\");\r",
+									"});\r",
+									"pm.test(\"Body matches Product Name\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include(\"product_name\");\r",
+									"});\r",
+									"pm.test(\"Body matches Message\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include(\"success get all Pulsa\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{User}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}products/Pulsa",
+							"host": [
+								"{{url}}products"
+							],
+							"path": [
+								"Pulsa"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Non Login Get Product Pulsa (+)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"pm.test(\"Status code name has OK\", function () {\r",
+									"    pm.response.to.have.status(\"OK\");\r",
+									"});\r",
+									"pm.test(\"Body matches ID\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include(\"id\");\r",
+									"});\r",
+									"pm.test(\"Body matches Type Product\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include(\"type_product\");\r",
+									"});\r",
+									"pm.test(\"Body matches Product Name\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include(\"product_name\");\r",
+									"});\r",
+									"pm.test(\"Body matches Message\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include(\"success get all Pulsa\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}products/Pulsa",
+							"host": [
+								"{{url}}products"
+							],
+							"path": [
+								"Pulsa"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Admin Get Product EMoney (+)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"pm.test(\"Status code name has OK\", function () {\r",
+									"    pm.response.to.have.status(\"OK\");\r",
+									"});\r",
+									"pm.test(\"Body matches ID\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include(\"id\");\r",
+									"});\r",
+									"pm.test(\"Body matches Type Product\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include(\"type_product\");\r",
+									"});\r",
+									"pm.test(\"Body matches Product Name\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include(\"product_name\");\r",
+									"});\r",
+									"pm.test(\"Body matches Message\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include(\"success get all E-money\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{Admin}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}products/E-Money",
+							"host": [
+								"{{url}}products"
+							],
+							"path": [
+								"E-Money"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "User Get Product EMoney (+)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"pm.test(\"Status code name has OK\", function () {\r",
+									"    pm.response.to.have.status(\"OK\");\r",
+									"});\r",
+									"pm.test(\"Body matches ID\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include(\"id\");\r",
+									"});\r",
+									"pm.test(\"Body matches Type Product\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include(\"type_product\");\r",
+									"});\r",
+									"pm.test(\"Body matches Product Name\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include(\"product_name\");\r",
+									"});\r",
+									"pm.test(\"Body matches Message\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include(\"success get all E-money\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{User}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}products/E-Money",
+							"host": [
+								"{{url}}products"
+							],
+							"path": [
+								"E-Money"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Non Login Get Product EMoney (+)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"pm.test(\"Status code name has OK\", function () {\r",
+									"    pm.response.to.have.status(\"OK\");\r",
+									"});\r",
+									"pm.test(\"Body matches ID\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include(\"id\");\r",
+									"});\r",
+									"pm.test(\"Body matches Type Product\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include(\"type_product\");\r",
+									"});\r",
+									"pm.test(\"Body matches Product Name\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include(\"product_name\");\r",
+									"});\r",
+									"pm.test(\"Body matches Message\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include(\"success get all E-money\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}products/E-Money",
+							"host": [
+								"{{url}}products"
+							],
+							"path": [
+								"E-Money"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Admin Get Product CashOut (+)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"pm.test(\"Status code name has OK\", function () {\r",
+									"    pm.response.to.have.status(\"OK\");\r",
+									"});\r",
+									"pm.test(\"Body matches ID\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include(\"id\");\r",
+									"});\r",
+									"pm.test(\"Body matches Type Product\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include(\"type_product\");\r",
+									"});\r",
+									"pm.test(\"Body matches Product Name\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include(\"product_name\");\r",
+									"});\r",
+									"pm.test(\"Body matches Message\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include(\"success get all Cashout\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{Admin}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}products/Cashout",
+							"host": [
+								"{{url}}products"
+							],
+							"path": [
+								"Cashout"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "User Get Product CashOut (+)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"pm.test(\"Status code name has OK\", function () {\r",
+									"    pm.response.to.have.status(\"OK\");\r",
+									"});\r",
+									"pm.test(\"Body matches ID\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include(\"id\");\r",
+									"});\r",
+									"pm.test(\"Body matches Type Product\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include(\"type_product\");\r",
+									"});\r",
+									"pm.test(\"Body matches Product Name\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include(\"product_name\");\r",
+									"});\r",
+									"pm.test(\"Body matches Message\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include(\"success get all Cashout\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{User}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}products/Cashout",
+							"host": [
+								"{{url}}products"
+							],
+							"path": [
+								"Cashout"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Non Login Get Product CashOut (+)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"pm.test(\"Status code name has OK\", function () {\r",
+									"    pm.response.to.have.status(\"OK\");\r",
+									"});\r",
+									"pm.test(\"Body matches ID\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include(\"id\");\r",
+									"});\r",
+									"pm.test(\"Body matches Type Product\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include(\"type_product\");\r",
+									"});\r",
+									"pm.test(\"Body matches Product Name\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include(\"product_name\");\r",
+									"});\r",
+									"pm.test(\"Body matches Message\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include(\"success get all Cashout\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}products/Cashout",
+							"host": [
+								"{{url}}products"
+							],
+							"path": [
+								"Cashout"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Transaction",
+			"item": [
+				{
+					"name": "Admin Get Detail Transaction (+)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"pm.test(\"Status code name has OK\", function () {\r",
+									"    pm.response.to.have.status(\"OK\");\r",
+									"});\r",
+									"pm.test(\"Body matches ID\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include(\"id\");\r",
+									"});\r",
+									"pm.test(\"Body matches User\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include(\"user\");\r",
+									"});\r",
+									"pm.test(\"Body matches Product\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include(\"product\");\r",
+									"});\r",
+									"pm.test(\"Body matches Number\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include(\"number\");\r",
+									"});\r",
+									"pm.test(\"Body matches Message\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include(\"success get all transaction\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{Admin}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}transaction",
+							"host": [
+								"{{url}}transaction"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "User Get Detail Transaction (-)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Fail GET request\", function () {\r",
+									"    pm.expect(pm.response.code).to.be.oneOf([400,403,404, 405, 500]);\r",
+									"});\r",
+									"pm.test(\"Body matches Message\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include(\"hanya bisa admin\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{User}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}transaction",
+							"host": [
+								"{{url}}transaction"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Non Admin Get Detail Transaction (-)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Fail GET request\", function () {\r",
+									"    pm.expect(pm.response.code).to.be.oneOf([400,404, 405, 500]);\r",
+									"});\r",
+									"pm.test(\"Body matches Message\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include(\"missing or malformed jwt\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}transaction",
+							"host": [
+								"{{url}}transaction"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Admin Create New Transaction (+)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonData = pm.response.json();\r",
+									"var usertranID = jsonData.user.id\r",
+									"pm.environment.set(\"id\", usertranID);\r",
+									"\r",
+									"var jsonData = pm.response.json();\r",
+									"var prducttranID = jsonData.product.id\r",
+									"pm.environment.set(\"id\", prducttranID);\r",
+									"\r",
+									"pm.test(\"Successful POST request\", function () {\r",
+									"    pm.expect(pm.response.code).to.be.oneOf([200,201, 202]);\r",
+									"});\r",
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"pm.test(\"Status code name has OK\", function () {\r",
+									"    pm.response.to.have.status(\"OK\");\r",
+									"});\r",
+									"pm.test(\"Body matches id\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include(\"id\");\r",
+									"});\r",
+									"pm.test(\"Body matches Number\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include(\"number\");\r",
+									"});\r",
+									"pm.test(\"Body matches User\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include(\"user\");\r",
+									"});\r",
+									"pm.test(\"Create Transaction\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.product.id).to.eql(prducttranID)\r",
+									"});\r",
+									"pm.test(\"Create Transaction\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.number).to.eql(\"08123456789\")\r",
+									"});\r",
+									"pm.test(\"Create Transaction\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.user.id).to.eql(usertranID)\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{Admin}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"number\" : \"08123456789\",\r\n    \"product_id\": 25\r\n\r\n}\r\n\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}user/17/transaction",
+							"host": [
+								"{{url}}user"
+							],
+							"path": [
+								"17",
+								"transaction"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "User Create New Transaction (+)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonData = pm.response.json();\r",
+									"var usertranIDuser = jsonData.user.id\r",
+									"pm.environment.set(\"id\", usertranIDuser);\r",
+									"\r",
+									"var jsonData = pm.response.json();\r",
+									"var prducttranIDuser = jsonData.product.id\r",
+									"pm.environment.set(\"id\", prducttranIDuser);\r",
+									"\r",
+									"pm.test(\"Successful POST request\", function () {\r",
+									"    pm.expect(pm.response.code).to.be.oneOf([200,201, 202]);\r",
+									"});\r",
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"pm.test(\"Status code name has OK\", function () {\r",
+									"    pm.response.to.have.status(\"OK\");\r",
+									"});\r",
+									"pm.test(\"Body matches id\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include(\"id\");\r",
+									"});\r",
+									"pm.test(\"Body matches Number\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include(\"number\");\r",
+									"});\r",
+									"pm.test(\"Body matches User\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include(\"user\");\r",
+									"});\r",
+									"pm.test(\"Create Transaction\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.product.id).to.eql(prducttranIDuser)\r",
+									"});\r",
+									"pm.test(\"Create Transaction\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.number).to.eql(\"08123456789\")\r",
+									"});\r",
+									"pm.test(\"Create Transaction\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.user.id).to.eql(usertranIDuser)\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{User}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"number\" : \"08123456789\",\r\n    \"product_id\": 25\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}user/17/transaction",
+							"host": [
+								"{{url}}user"
+							],
+							"path": [
+								"17",
+								"transaction"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Admin Create New Transaction Not Enough Point (-)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Fail GET request\", function () {\r",
+									"    pm.expect(pm.response.code).to.be.oneOf([400,404, 405, 500]);\r",
+									"});\r",
+									"pm.test(\"Body matches Message\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include(\"Not Enough Point\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{Admin}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"number\" : \"08123456789\",\r\n    \"product_id\": 6\r\n    \r\n}\r\n\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}user/9/transaction",
+							"host": [
+								"{{url}}user"
+							],
+							"path": [
+								"9",
+								"transaction"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "User Create New Transaction Not Enough Point (-)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Fail GET request\", function () {\r",
+									"    pm.expect(pm.response.code).to.be.oneOf([400,404, 405, 500]);\r",
+									"});\r",
+									"pm.test(\"Body matches Message\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include(\"Not Enough Point\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{User}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"number\" : \"08123456789\",\r\n    \"product_id\": 10\r\n}\r\n\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}user/16/transaction",
+							"host": [
+								"{{url}}user"
+							],
+							"path": [
+								"16",
+								"transaction"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Admin Create New Transaction Invalid Product ID(-)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Fail GET request\", function () {\r",
+									"    pm.expect(pm.response.code).to.be.oneOf([400,404, 405, 500]);\r",
+									"});\r",
+									"pm.test(\"Body matches Message\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include(\"product not found\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{Admin}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"number\" : \"08123456789\",\r\n    \"product_id\": 2\r\n}\r\n\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}user/8/transaction",
+							"host": [
+								"{{url}}user"
+							],
+							"path": [
+								"8",
+								"transaction"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "user Create New Transaction Invalid Product ID (-)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Fail GET request\", function () {\r",
+									"    pm.expect(pm.response.code).to.be.oneOf([400,404, 405, 500]);\r",
+									"});\r",
+									"pm.test(\"Body matches Message\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include(\"product not found\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{Admin}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"number\" : \"08123456789\",\r\n    \"product_id\": 255\r\n}\r\n\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}user/17/transaction",
+							"host": [
+								"{{url}}user"
+							],
+							"path": [
+								"17",
+								"transaction"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "User Create Transaction with Null ID (-)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Fail POST request\", function () {\r",
+									"    pm.expect(pm.response.code).to.be.oneOf([400,404, 405, 500]);\r",
+									"});\r",
+									"pm.test(\"Body matches Message\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include(\"Not Found\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{User}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"number\" : \"0856577777\",\r\n    \"product_id\": 2\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}user/transaction",
+							"host": [
+								"{{url}}user"
+							],
+							"path": [
+								"transaction"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Non User & Non Admin Create Transaction (-)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Fail POST request\", function () {\r",
+									"    pm.expect(pm.response.code).to.be.oneOf([400,404, 405, 500]);\r",
+									"});\r",
+									"pm.test(\"Body matches Message\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include(\"missing or malformed jwt\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"number\" : \"0856577777\",\r\n    \"product_id\": 2\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}user/8/transaction",
+							"host": [
+								"{{url}}user"
+							],
+							"path": [
+								"8",
+								"transaction"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "User Create Transaction by Another ID(-)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Fail POST request\", function () {\r",
+									"    pm.expect(pm.response.code).to.be.oneOf([400,403,404, 405, 500]);\r",
+									"});\r",
+									"pm.test(\"Body matches Message\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include(\"error, id tidak sama\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{User}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"number\" : \"0856577777\",\r\n    \"product_id\": 2\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}user/9/transaction",
+							"host": [
+								"{{url}}user"
+							],
+							"path": [
+								"9",
+								"transaction"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Admin Get Transaction by ID (+)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonData = pm.response.json();\r",
+									"var tranID = jsonData.data.id\r",
+									"pm.environment.set(\"id\", tranID);\r",
+									"\r",
+									"\r",
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"pm.test(\"Status code name has OK\", function () {\r",
+									"    pm.response.to.have.status(\"OK\");\r",
+									"});\r",
+									"pm.test(\"Body matches ID\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include(\"id\");\r",
+									"});\r",
+									"pm.test(\"Body matches Number\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include(\"number\");\r",
+									"});\r",
+									"pm.test(\"Body matches Product\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include(\"product\");\r",
+									"});\r",
+									"pm.test(\"Body matches Message\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include(\"success get transaction\");\r",
+									"});\r",
+									"pm.test(\"Get Transaction\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.data.id).to.eql(tranID)\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{Admin}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}transaction/16",
+							"host": [
+								"{{url}}transaction"
+							],
+							"path": [
+								"16"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Admin Get Transaction by random ID (-)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Fail DELETE request\", function () {\r",
+									"    pm.expect(pm.response.code).to.be.oneOf([400,404, 405, 500]);\r",
+									"});\r",
+									"pm.test(\"Body matches Message\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include(\"transaction not found\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{Admin}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}transaction/123",
+							"host": [
+								"{{url}}transaction"
+							],
+							"path": [
+								"123"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "User Get Transaction by ID with Admin URL (-)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Fail GET request\", function () {\r",
+									"    pm.expect(pm.response.code).to.be.oneOf([400,403,404, 405, 500]);\r",
+									"});\r",
+									"pm.test(\"Body matches Message\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include(\"hanya bisa admin\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{User}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}transaction/9",
+							"host": [
+								"{{url}}transaction"
+							],
+							"path": [
+								"9"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Non Login Get Transaction by ID with Admin URL (-)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Fail GET request\", function () {\r",
+									"    pm.expect(pm.response.code).to.be.oneOf([400,404, 405, 500]);\r",
+									"});\r",
+									"pm.test(\"Body matches Message\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include(\"missing or malformed jwt\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}transaction/9",
+							"host": [
+								"{{url}}transaction"
+							],
+							"path": [
+								"9"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "User Get Transaction by ID with User URL(+)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"pm.test(\"Status code name has OK\", function () {\r",
+									"    pm.response.to.have.status(\"OK\");\r",
+									"});\r",
+									"pm.test(\"Body matches Product\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include(\"product\");\r",
+									"});\r",
+									"pm.test(\"Body matches user\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include(\"user\");\r",
+									"});\r",
+									"pm.test(\"Body matches number\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include(\"number\");\r",
+									"});\r",
+									"pm.test(\"Get Transaction By TransactionID\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.data[0].user.id).to.eql(17)\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{User}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}user/17/transactions",
+							"host": [
+								"{{url}}user"
+							],
+							"path": [
+								"17",
+								"transactions"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "User Get Transaction by Antoher ID (-)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Fail GET request\", function () {\r",
+									"    pm.expect(pm.response.code).to.be.oneOf([400,403,404, 405, 500]);\r",
+									"});\r",
+									"pm.test(\"Body matches message\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include(\"error, id tidak sama\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{User}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}user/4/transactions",
+							"host": [
+								"{{url}}user"
+							],
+							"path": [
+								"4",
+								"transactions"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "User Get Transaction by Null ID (-)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Fail GET request\", function () {\r",
+									"    pm.expect(pm.response.code).to.be.oneOf([400,404, 405, 500]);\r",
+									"});\r",
+									"pm.test(\"Body matches message\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include(\"Not Found\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{User}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}user/transactions",
+							"host": [
+								"{{url}}user"
+							],
+							"path": [
+								"transactions"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "User Get Transaction by ID Type String (-)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Fail GET request\", function () {\r",
+									"    pm.expect(pm.response.code).to.be.oneOf([400,403,404, 405, 500]);\r",
+									"});\r",
+									"pm.test(\"Body matches message\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include(\"error, id tidak sama\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{User}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}user/tiga/transactions",
+							"host": [
+								"{{url}}user"
+							],
+							"path": [
+								"tiga",
+								"transactions"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Non Login Get Transaction by ID  with User URL (-)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Fail GET request\", function () {\r",
+									"    pm.expect(pm.response.code).to.be.oneOf([400,404, 405, 500]);\r",
+									"});\r",
+									"pm.test(\"Body matches message\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include(\"missing or malformed jwt\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}user/tiga/transactions",
+							"host": [
+								"{{url}}user"
+							],
+							"path": [
+								"tiga",
+								"transactions"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Admin Delete Existing Transaction by ID (+)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Body matches Messages\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include(\"transaction deleted successfully\");\r",
+									"});\r",
+									"pm.test(\"Delete User By ID\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.data).to.eql(4)\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{Admin}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{url}}transaction/4",
+							"host": [
+								"{{url}}transaction"
+							],
+							"path": [
+								"4"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Admin Delete Non Existing Transaction (-)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Fail DELETE request\", function () {\r",
+									"    pm.expect(pm.response.code).to.be.oneOf([400,404, 405, 500]);\r",
+									"});\r",
+									"pm.test(\"Body matches Message\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include(\"transaction not found\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{Admin}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{url}}transaction/123",
+							"host": [
+								"{{url}}transaction"
+							],
+							"path": [
+								"123"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Admin Delete Existing Transaction by ID Type String (-)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Fail DELETE request\", function () {\r",
+									"    pm.expect(pm.response.code).to.be.oneOf([400,404, 405, 500]);\r",
+									"});\r",
+									"pm.test(\"Body matches Message\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include(\"Truncated incorrect INTEGER value\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{Admin}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{url}}transaction/satu",
+							"host": [
+								"{{url}}transaction"
+							],
+							"path": [
+								"satu"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Admin Delete Existing Transaction by Null ID (-)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Fail DELETE request\", function () {\r",
+									"    pm.expect(pm.response.code).to.be.oneOf([400,404, 405, 500]);\r",
+									"});\r",
+									"pm.test(\"Body matches Message\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include(\"Not Found\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{Admin}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{url}}transaction",
+							"host": [
+								"{{url}}transaction"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "User Delete Existing Transaction by ID (-)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Fail DELETE request\", function () {\r",
+									"    pm.expect(pm.response.code).to.be.oneOf([400,403,404, 405, 500]);\r",
+									"});\r",
+									"pm.test(\"Body matches Message\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include(\"hanya bisa admin\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{User}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{url}}transaction/4",
+							"host": [
+								"{{url}}transaction"
+							],
+							"path": [
+								"4"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Non Login Delete Existing Transaction by ID (-)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Fail DELETE request\", function () {\r",
+									"    pm.expect(pm.response.code).to.be.oneOf([400,404, 405, 500]);\r",
+									"});\r",
+									"pm.test(\"Body matches Message\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include(\"missing or malformed jwt\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{url}}transaction/1",
+							"host": [
+								"{{url}}transaction"
+							],
+							"path": [
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
